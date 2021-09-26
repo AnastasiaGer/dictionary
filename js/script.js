@@ -1,3 +1,5 @@
+"use strict";
+
 /* Тестовые данные */
 
 const terms = [
@@ -213,10 +215,10 @@ const createModalString = ({ description }) => {
       </div>
     </div>
       `;
-      modalContainer.innerHTML = code;
+  modalContainer.innerHTML = code;
 };
 
-const createNavItemString = ({ key, items }) => 
+const createNavItemString = ({ key, items }) =>
   `<li class="site-nav-item">
       <a class="site-nav-link" ${
         items.length > 0 ? `href="#${key}"` : ""
@@ -240,8 +242,6 @@ const createSectionString = ({ key, items }) =>
       </ul>
     </section>
   `;
-
-
 
 const render = () => {
   const navElementsString = terms.map(createNavItemString).join("");
