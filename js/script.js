@@ -284,7 +284,7 @@ const itemClickHandler = (evt) => {
   const {value} = element.dataset;
 
   const glossaryItems = terms.find(
-    ({key}) => value.toUpperCase().indexOf(key.toUpperCase()) === 0
+      ({key}) => value.toUpperCase().indexOf(key.toUpperCase()) === 0
   );
 
   if (glossaryItems && glossaryItems.items) {
