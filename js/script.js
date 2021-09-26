@@ -204,7 +204,7 @@ const addChildElementsFromString = (parent, domString) => {
   parent.insertAdjacentHTML("beforeend", domString);
 };
 
-const createModalString = ({ description }) => {
+const createModalString = ({description}) => {
   modalContainer.innerHTML = "";
   let code = `<div class="modal-popup">
       <button class="close-button" type="button">
@@ -218,20 +218,20 @@ const createModalString = ({ description }) => {
   modalContainer.innerHTML = code;
 };
 
-const createNavItemString = ({ key, items }) =>
+const createNavItemString = ({key, items}) =>
   `<li class="site-nav-item">
       <a class="site-nav-link" ${
-        items.length > 0 ? `href="#${key}"` : ""
-      } >${key}</a>
+  items.length > 0 ? `href="#${key}"` : ""
+} >${key}</a>
     </li>
   `;
 
-const createSectionString = ({ key, items }) =>
+const createSectionString = ({key, items}) =>
   `<section class="glossary-section">
       <h2 id="${key}">${key}</h2>
       <ul class="glossary-list">
         ${items
-          .map(({ term }) => {
+          .map(({term}) => {
             return `
       <li class="glossary-item">
         <a data-value="${term}" href="#">${term}</a>
@@ -281,10 +281,10 @@ const itemClickHandler = (evt) => {
   }
   evt.preventDefault();
 
-  const { value } = element.dataset;
+  const {value} = element.dataset;
 
   const glossaryItems = terms.find(
-    ({ key }) => value.toUpperCase().indexOf(key.toUpperCase()) === 0
+    ({key}) => value.toUpperCase().indexOf(key.toUpperCase()) === 0
   );
 
   if (glossaryItems && glossaryItems.items) {
