@@ -195,7 +195,6 @@ const terms = [
 const navContainer = document.querySelector(".site-nav");
 const glossaryContainer = document.querySelector(".glossary");
 const modalContainer = document.querySelector(".modal");
-const closeBtn = document.querySelector(".close-button");
 
 const addChildElementsFromString = (parent, domString) => {
   parent.innerHTML = "";
@@ -203,7 +202,21 @@ const addChildElementsFromString = (parent, domString) => {
   parent.insertAdjacentHTML("beforeend", domString);
 };
 
-const createNavItemString = ({ key, items }) =>
+const createModalString = ({ description }) => {
+  modalContainer.innerHTML = "";
+  let code = `<div class="modal-popup">
+      <button class="close-button" type="button">
+        <span class="visually-hidden">Закрыть окно</span>
+      </button>
+      <div class="modal-content">
+        <p>${description} </p>
+      </div>
+    </div>
+      `;
+      modalContainer.innerHTML = code;
+};
+
+const createNavItemString = ({ key, items }) => 
   `<li class="site-nav-item">
       <a class="site-nav-link" ${
         items.length > 0 ? `href="#${key}"` : ""
@@ -228,16 +241,7 @@ const createSectionString = ({ key, items }) =>
     </section>
   `;
 
-const createModalString = ({ description }) =>
-  `<div class="modal-popup">
-  <button class="close-button" type="button">
-    <span class="visually-hidden">Закрыть окно</span>
-  </button>
-  <div class="modal-content">
-    <p>${description} </p>
-  </div>
-</div>
-  `;
+
 
 const render = () => {
   const navElementsString = terms.map(createNavItemString).join("");
@@ -277,29 +281,32 @@ const itemClickHandler = (evt) => {
   }
   evt.preventDefault();
 
-  const {value} = element.dataset;
+  const { value } = element.dataset;
 
-  const  glossaryItems = terms.find(({key}) => value.toUpperCase().indexOf(key.toUpperCase()) === 0);
+  const glossaryItems = terms.find(
+    ({ key }) => value.toUpperCase().indexOf(key.toUpperCase()) === 0
+  );
 
   if (glossaryItems && glossaryItems.items) {
     const currentItem = glossaryItems.items.find((item) => item.term === value);
 
     if (currentItem) {
       modalContainer.classList.add("shown");
-    createModalString(currentItem);
+      createModalString(currentItem);
     }
   }
 };
 
-const closeBtnHandler = () => {
+const closeBtnHandler = (evt) => {
+  evt.preventDefault();
   modalContainer.classList.remove("shown");
-}
+};
 
 const init = () => {
   render();
   glossaryContainer.addEventListener("click", itemClickHandler);
   navContainer.addEventListener("click", navItemsClickHandler);
-  closeBtn.addEventListener("click", closeBtnHandler);
+  modalContainer.addEventListener("click", closeBtnHandler);
 };
 
 init();
